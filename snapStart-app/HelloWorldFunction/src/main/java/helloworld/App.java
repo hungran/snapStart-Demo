@@ -7,13 +7,12 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.security.SecureRandom;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.amazonaws.services.logs.AWSLogsClient;
+
 /**
  * Handler for requests to Lambda function.
  */
@@ -28,8 +27,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 .withHeaders(headers);
         try {
             final String pageContents = this.getPageContents("https://checkip.amazonaws.com");
-            final int outofsnapStart = this.outofsnapStart();
-            String output = String.format("{ \"message\": \"hello world\", \"location\": \"%s\" , \"secure_random\": \"%s\", \"secure_random_outofHandler\": \"%s\"}", pageContents, rng.nextInt(), outofsnapStart);
+            final int randomInt = generateInt.generateRandomInterger();
+            String output = String.format("{ \"message\": \"hello VIETAWS\", \"location\": \"%s\" , \"randomInt\": \"%s\"}", pageContents, randomInt);
             return response
                 .withStatusCode(200)
                 .withBody(output);
@@ -47,11 +46,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         }
     }
 
-    private static SecureRandom rng = new SecureRandom();
-
-    private AWSLogsClient logs;
-    public int outofsnapStart() throws IOException {
-        SecureRandom abc = new SecureRandom();
-        return abc.nextInt();
+    public static int getIntInsideHandler() throws IOException {
+        return generateInt.generateRandomInterger();
     }
+
 }
