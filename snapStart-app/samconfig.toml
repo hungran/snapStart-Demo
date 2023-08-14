@@ -2,10 +2,10 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "snapStart-app"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-rbc6wqmomhfz"
+stack_name = "snapStart-app-01"
+s3_bucket = "codestar-20230814"
 s3_prefix = "snapStart-app"
-region = "ap-southeast-1"
+region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
